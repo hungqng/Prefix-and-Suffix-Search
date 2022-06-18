@@ -18,6 +18,19 @@ class WordFilter:
     def f(self, prefix: str, suffix: str) -> int:
         return self.d.get((prefix, suffix), -1)
 
+    # Solution 2
+    def __init__(self, words: List[str]):
+        tmp = {}
+        for index, word in enumerate(words):
+            tmp[word] = index
+        self.words = [(k+'#'+k,v) for k,v in tmp.items()]
+
+    def f(self, prefix: str, suffix: str) -> int:
+        ps = suffix + '#' + prefix
+        for word, index in reversed(self.words):
+            if ps in word:
+                return index
+        return -1
 
 # Your WordFilter object will be instantiated and called as such:
 # obj = WordFilter(words)
